@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +19,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "use_id")
     private Long id;
     @Column(nullable = false,unique = true)
     private String sub;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_use_id",referencedColumnName = "use_id")
+    private List<Page> pages = new ArrayList<>();
+    public boolean addPage(Page e){
+       return pages.add(e);
+    }
 }

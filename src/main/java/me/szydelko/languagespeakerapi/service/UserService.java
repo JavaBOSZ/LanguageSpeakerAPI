@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    public UserRepo userRepo;
+    private UserRepo userRepo;
 
     public boolean userCheck(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -20,7 +20,9 @@ public class UserService {
         user.setSub(authentication.getName());
 
         try {
-            userRepo.save(user);
+            if (authentication.isAuthenticated()){
+                userRepo.save(user);
+            }
         }catch (Exception e){
             return true;
         }
@@ -28,6 +30,19 @@ public class UserService {
         return false;
     }
 
+    public User findBySub(String Sub){
 
+        return userRepo.findBySub(Sub).get();
 
+    }
+    public User findMe(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        userCheck();
+        return userRepo.findBySub(authentication.getName()).get();
+
+    }
+    public User save(User e){
+        return userRepo.save(e);
+    }
 }

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class DemoController {
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
 
     @GetMapping
@@ -27,10 +27,10 @@ public class DemoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 
-        userService.userCheck();
-        userService.userRepo.deleteBySub(authentication.getName());
+//        userService.userCheck();
+//        userService.userRepo.deleteBySub(authentication.getName());
 
-        return ResponseEntity.ok("jooooooooo"+  userService.userRepo.count() +" : " );
+        return ResponseEntity.ok("jooooooooo" );
     }
 
 }
