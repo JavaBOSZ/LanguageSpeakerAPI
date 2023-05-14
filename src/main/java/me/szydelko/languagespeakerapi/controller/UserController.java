@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user/me")
+@RequestMapping("/api/user")
 @CrossOrigin
 public class UserController {
 
     @Autowired
     UserService userService;
-    @GetMapping()
+    @GetMapping("/me")
     public ResponseEntity<User> myPages() {
         return ResponseEntity.ok(userService.findMe());
     }

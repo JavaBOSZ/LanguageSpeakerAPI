@@ -4,6 +4,7 @@ import me.szydelko.languagespeakerapi.model.Page;
 import me.szydelko.languagespeakerapi.model.User;
 import me.szydelko.languagespeakerapi.repo.PageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,15 +30,20 @@ public class PageService {
         userService.save(bySub);
         return tmp;
     }
+
     public List<Page> myPages(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.findMe().getPages();
     }
+    public Optional<Page> idPage(Long id){
+        return pageRepo.findById(id);
+    }
     public List<Page> allPages(){
-        return pageRepo.findAll();
+        return pageRepo.findAll(Sort.by(Sort.Direction.ASC,"title"));
     }
     public List<Page> searchPages(String text){
-        return pageRepo.findAllByContentContainsOrTitleContains(text,text);
+
+        return pageRepo.findAllByContentContainsOrTitleContainsOrderByTitleAsc(text,text);
     }
     public boolean deleteById(Long id){
         boolean contains = userService.findMe().getPages().contains(pageRepo.findById(id));

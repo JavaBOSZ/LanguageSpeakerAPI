@@ -9,6 +9,6 @@ import java.util.List;
 @Transactional
 public interface PageRepo extends JpaRepository<Page,Long> {
     void deleteByTitle(String title);
-    List<Page> findAllByContentContainsOrTitleContains(String content, String title);
     List<Page> findAllByTitle(String title);
+    List<Page> findAllByContentContainsOrTitleContainsOrderByTitleAsc(String text, String text1);
 }

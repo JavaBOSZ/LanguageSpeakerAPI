@@ -19,6 +19,7 @@ public class Page {
     @Column(name = "pag_id")
     private Long id;
     private String title;
+    @Column(length = 4000)
     private String content;
 
 }
