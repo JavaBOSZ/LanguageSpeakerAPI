@@ -42,6 +42,11 @@ public class UserService {
         return userRepo.findBySub(authentication.getName()).get();
 
     }
+    public User findMeNone(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return userRepo.findBySub(authentication.getName()).get();
+    }
     public User save(User e){
         return userRepo.save(e);
     }

@@ -38,19 +38,21 @@ public class PageController {
         return ResponseEntity.ok(pageService.searchPages(text));
     }
 
-    @PostMapping("/{title}")
-    public ResponseEntity<Page> postPage(@PathVariable String title, @RequestBody String content) {
-        return ResponseEntity.ok(pageService.create(title,content));
+    @PostMapping("/{title}/{lang}")
+    public ResponseEntity<Page> postPage(@PathVariable String title, @RequestBody String content, @PathVariable String lang) {
+        return ResponseEntity.ok(pageService.create(title,content,lang));
     }
-
+    @PutMapping("/{id}/{title}/{lang}")
+    public ResponseEntity<Page> putPage(@PathVariable String title, @RequestBody String content, @PathVariable String lang, @PathVariable Long id) {
+        return ResponseEntity.ok(pageService.update(title,content,lang,id));
+    }
     @DeleteMapping("/id/{id}")
     public ResponseEntity<String> deleteByIdPage(@PathVariable Long id) {
+
         if (pageService.deleteById(id)){
             return ResponseEntity.ok("ok");
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("FORBIDDEN");
     }
-
-
 
 }

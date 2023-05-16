@@ -24,7 +24,8 @@ public class User {
     @Column(nullable = false,unique = true)
     private String sub;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_use_id",referencedColumnName = "use_id")
+//    @JoinColumn(name = "fk_use_id",referencedColumnName = "use_id")
+    @JoinColumn(name = "user_id")
     private List<Page> pages = new ArrayList<>();
     public boolean addPage(Page e){
        return pages.add(e);

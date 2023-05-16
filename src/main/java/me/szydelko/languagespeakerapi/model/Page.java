@@ -1,5 +1,6 @@
 package me.szydelko.languagespeakerapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,11 @@ public class Page {
     private String title;
     @Column(length = 4000)
     private String content;
+    @Column(length = 6)
+    private String lang;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
 }

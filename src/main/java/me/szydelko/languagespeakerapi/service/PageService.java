@@ -20,14 +20,25 @@ public class PageService {
     @Autowired
     private UserService userService;
 
-    public Page create(String title,String content){
+    public Page create(String title,String content,String lang){
         Page tmp = new Page();
         tmp.setTitle(title);
         tmp.setContent(content);
+        tmp.setLang(lang);
         tmp = pageRepo.save(tmp);
         User bySub = userService.findMe();
         bySub.addPage(tmp);
         userService.save(bySub);
+        return tmp;
+    }
+
+    public Page update(String title,String content,String lang,Long id){
+        Page tmp = new Page();
+        tmp.setId(id);
+        tmp.setTitle(title);
+        tmp.setContent(content);
+        tmp.setLang(lang);
+        tmp = pageRepo.save(tmp);
         return tmp;
     }
 
@@ -46,18 +57,27 @@ public class PageService {
         return pageRepo.findAllByContentContainsOrTitleContainsOrderByTitleAsc(text,text);
     }
     public boolean deleteById(Long id){
-        boolean contains = userService.findMe().getPages().contains(pageRepo.findById(id));
-        if (contains) {
-            pageRepo.deleteById(id);
+
+//                userService.findMeNone().getPages().stream().anyMatch(e->e.getId().equals(id));
+        try {
+            pageRepo.deleteByUserIdAndId(userService.findMeNone().getId(),id);
+        }catch (Exception e){
+         return false;
         }
-        return contains;
+        return true;
     }
     public boolean deleteByTitle(String title){
-        boolean contains = userService.findMe().getPages().containsAll(pageRepo.findAllByTitle(title));
-        if (contains){
-            pageRepo.deleteByTitle(title);
+//        boolean contains = userService.findMe().getPages().containsAll(pageRepo.findAllByTitle(title));
+//        if (contains){
+//            pageRepo.deleteByTitle(title);
+//        }
+//        return contains;
+        try {
+            pageRepo.deleteByUserIdAndTitle(userService.findMeNone().getId(),title);
+        }catch (Exception e){
+            return false;
         }
-        return contains;
+        return true;
     }
 
 

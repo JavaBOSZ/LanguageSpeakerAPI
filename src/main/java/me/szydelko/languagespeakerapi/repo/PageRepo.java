@@ -11,4 +11,7 @@ public interface PageRepo extends JpaRepository<Page,Long> {
     void deleteByTitle(String title);
     List<Page> findAllByTitle(String title);
     List<Page> findAllByContentContainsOrTitleContainsOrderByTitleAsc(String text, String text1);
+    void deleteById(Long id);
+    void deleteByUserIdAndId(Long user_id, Long id);
+    void deleteByUserIdAndTitle(Long user_id, String title);
 }
