@@ -83,7 +83,8 @@ spring:
 ```yaml
 spring:
   jpa:
-      ddl-auto: update 
+    hibernate:
+      ddl-auto: create-drop
 ```
 #### oauth2 configuration
 > src/main/resources/application.yaml
