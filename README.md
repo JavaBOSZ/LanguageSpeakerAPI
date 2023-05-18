@@ -26,7 +26,24 @@ or
 ```bash
 docker-compose -f docker-compose.yml up
 ```
+
+### javaScript
+
+> in src/front 
+> ```bash
+>   cd src/front
+> ```
+
+```bash
+npm install
+```
+
 ### java
+
+> in main directory 
+>```bash
+>cd ../..
+>```
 ```bash
 mvn clean package
 ```
@@ -38,7 +55,48 @@ or
 ```bash
 java -jar target/LanguageSpeakerAPI-0.0.1-SNAPSHOT.jar
 ```
+or 
+> #### Run from IDE 
+> main -> src/main/java/me/szydelko/languagespeakerapi/LanguageSpeakerApiApplication.java
 
+### configuration
+
+#### database configuration
+> src/main/resources/application.yaml
+```yaml
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dbls
+    username: postgres
+    password: example
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
+```
+#### if you want the databases don't DROP on the startup 
+```yaml
+spring:
+  jpa:
+      ddl-auto: update 
+```
+#### oauth2 configuration
+> src/main/resources/application.yaml
+```yaml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: Iv1.7272d97770f79302
+            clientSecret: ae2ddd54686e3bc0595c0d3c32c5e6223cda31e8
+```
 
 ### Reference Documentation
 
